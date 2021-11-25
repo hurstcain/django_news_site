@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% load news_tags %}
+
+{% block title %}
+{{ category.title }}
+{% endblock %}
+
+{% block navbar_appearance %}
+<a class="btn btn-outline-light" href="{% url 'home' %}" role="button">Главная</a>
+{% get_categories as categories %}
+{% for item in categories %}
+    {% if item.id == category.id %}
+        <a class="btn btn-outline-light active" href="{{ item.get_absolute_url }}" role="button">{{ item.title }}</a>
+    {% else %}
+        <a class="btn btn-outline-light" href="{{ item.get_absolute_url }}" role="button">{{ item.title }}</a>
+    {% endif %}
+{% endfor %}
+{% endblock %}

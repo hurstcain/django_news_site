@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% load news_tags %}
+{% load static %}
+
+{% block styling %}
+<link rel="stylesheet" href="{% static 'css/add_news_style.css' %}">
+{% endblock %}
+
+{% block title %}
+Добавить новость
+{% endblock %}
+
+{% block navbar_appearance %}
+<a class="btn btn-outline-light" href="{% url 'home' %}" role="button">Главная</a>
+{% get_categories as categories %}
+{% for item in categories %}
+        <a class="btn btn-outline-light" href="{{ item.get_absolute_url }}" role="button">{{ item.title }}</a>
+{% endfor %}
+{% endblock %}
+
+{% block page_content %}
+<div id="title">
+    <h1>Добавить новость</h1>
+    <br>
+</div>
+<div>
+    <form action="{% url 'add_news' %}" method="post" style="max-width: 600px; margin: 0 auto;" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <div class="center-div">
+            <button type="submit" class="btn btn-outline-dark btn-lg">Добавить</button>
+        </div>
+    </form>
+</div>
+{% endblock %}

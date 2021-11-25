@@ -1,0 +1,7 @@
+db.sqlite3
+/media
+/news/__pycache__
+/news/migrations
+/news/templatetags/__pycache__
+/testsite/__pycache__
+/testsite/settings.py

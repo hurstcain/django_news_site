@@ -1,0 +1,35 @@
+#title {
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align:center;
+    color: #141313;
+}
+h1 {
+    font-weight: bold;
+    font-size: 30pt;
+}
+#link-center {
+    text-align:center;
+    font-size: 13pt;
+}
+#cat-link {
+    color: #423a3a;
+    text-decoration: none;
+}
+#cat-link:hover {
+    color: #615454;
+}
+#news-image {
+    max-height: 400px;
+}
+#news-image.displayed {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+#news-text {
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+}

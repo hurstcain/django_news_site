@@ -1,0 +1,13 @@
+body {
+    background-color: #333030;
+}
+.container {
+    background-color: #EFECEC;
+    border-radius: 15px;
+    box-shadow:0 0 17px #1D1B1B;
+}
+#navbar {
+    width:90%;
+    margin-left: auto;
+    margin-right: auto;
+}

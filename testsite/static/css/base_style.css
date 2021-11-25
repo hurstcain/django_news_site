@@ -1,0 +1,24 @@
+#news-card {
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 15px;
+}
+#cat-link {
+    color: #423a3a;
+    text-decoration: none;
+}
+#cat-link:hover {
+    color: #615454;
+}
+#card-title-link {
+    color: #141313;
+    text-decoration: none;
+}
+#card-title-link:hover {
+    color: #3d3a3a;
+}
+#rounded-start {
+    border-bottom-left-radius:15px;
+    border-top-left-radius:15px;
+}

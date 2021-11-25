@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% load news_tags %}
+{% load static %}
+
+{% block styling %}
+<link rel="stylesheet" href="{% static 'css/view_news_style.css' %}">
+{% endblock %}
+
+{% block title %}
+{{ news.title }}
+{% endblock %}
+
+{% block navbar_appearance %}
+<a class="btn btn-outline-light" href="{% url 'home' %}" role="button">Главная</a>
+{% get_categories as categories %}
+{% for item in categories %}
+        <a class="btn btn-outline-light" href="{{ item.get_absolute_url }}" role="button">{{ item.title }}</a>
+{% endfor %}
+{% endblock %}
+
+{% block page_content %}
+<div id="link-center">
+    <a href="{{ news.category.get_absolute_url }}" id="cat-link">
+        {{ news.category.title }}
+    </a>
+</div>
+<div id="title">
+    <h1>{{ news.title }}</h1>
+</div>
+<div class="text-muted" style="font-size: 11pt;text-align:center;">{{ news.created_at|date:"d.m.Y H:i" }}</div>
+<br>
+<p style="text-align: center;">
+    {% if news.photo %}
+        <img src="{{ news.photo.url }}" id="news-image">
+    {% endif %}
+</p>
+<div id="news-text">
+    {{ news.content|linebreaksbr }}
+</div>
+{% endblock %}
