@@ -1,50 +1,37 @@
-from django.shortcuts import render, get_object_or_404, redirect
+from django.views.generic import ListView, DetailView, CreateView
 
 from news.models import News, Category
 from news.forms import NewsForm
 
 
-def index(request):
-    news = News.objects.order_by('-created_at')
-    context = {
-        'news': news,
-        'title': 'Список новостей'
-    }
-
-    return render(request, template_name='news/index.html', context=context)
+class HomeNews(ListView):
+    queryset = News.objects.filter(is_published=True)
+    template_name = 'news/index.html'
+    context_object_name = 'news'
 
 
-def get_news_by_category(request, category_id):
-    category = Category.objects.get(id=category_id)
-    news = News.objects.filter(category_id=category_id)
-    context = {
-        'category': category,
-        'news': news
-    }
+class NewsCategory(ListView):
+    template_name = 'news/category.html'
+    context_object_name = 'news'
+    allow_empty = False
 
-    return render(request, template_name='news/category.html', context=context)
+    def get_queryset(self):
+        return News.objects.filter(is_published=True, category_id=self.kwargs['category_id'])
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['category'] = Category.objects.get(pk=self.kwargs['category_id'])
 
-def get_news_content(request, news_id):
-    news_to_view = get_object_or_404(News, pk=news_id)
-    context = {
-        'news': news_to_view
-    }
-
-    return render(request, template_name='news/view_news.html', context=context)
+        return context
 
 
-def add_news(request):
-    if request.method == 'POST':
-        form = NewsForm(request.POST, request.FILES)
-        if form.is_valid():
-            news = News.objects.create(**form.cleaned_data)
+class ViewNews(DetailView):
+    queryset = News.objects.filter(is_published=True)
+    pk_url_kwarg = 'news_id'
+    template_name = 'news/view_news.html'
+    context_object_name = 'news'
 
-            return redirect(news)
-    elif request.method == 'GET':
-        form = NewsForm()
-    context = {
-        'form': form
-    }
 
-    return render(request, template_name='news/add_news.html', context=context)
+class AddNews(CreateView):
+    form_class = NewsForm
+    template_name = 'news/add_news.html'
