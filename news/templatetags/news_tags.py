@@ -1,13 +1,16 @@
 from django import template
+from django.db.models import Count, Q
 
 from news.models import Category, News
+
 
 register = template.Library()
 
 
 @register.simple_tag
 def get_categories():
-    return Category.objects.all()
+    categories = Category.objects.annotate(news_count=Count('news', filter=Q(news__is_published=True))).filter(news_count__gt=0)
+    return categories
 
 
 @register.simple_tag
